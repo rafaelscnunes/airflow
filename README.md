@@ -49,3 +49,12 @@ ed9b09fc84b1   apache/airflow:2.2.2   "/usr/bin/dumb-init …"   3 minutes ago  
 74f3bbe506eb   postgres:13            "docker-entrypoint.s…"   18 minutes ago   Up 17 minutes (healthy)   5432/tcp                           compose_postgres_1
 0bd6576d23cb   redis:latest           "docker-entrypoint.s…"   10 hours ago     Up 17 minutes (healthy)   0.0.0.0:6379->6379/tcp             compose_redis_1
 ```
+
+
+## Custom image
+https://airflow.apache.org/docs/docker-stack/build.html#build-build-image
+
+
+## Plug-ins
+https://airflow.apache.org/docs/apache-airflow/stable/extra-packages-ref.html
+https://airflow.apache.org/docs/apache-airflow-providers-jdbc/stable/operators.html
