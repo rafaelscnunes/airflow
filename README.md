@@ -29,9 +29,8 @@ The account created has the login airflow and the password airflow
 
 ## Running Airflow
 ```shell
+docker-compose up -d
 docker-compose up -d flower
-
-
 $ docker ps
 
 CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS                     PORTS                                                 NAMES
@@ -45,6 +44,11 @@ ccd5f4c8983b   apache/airflow:2.9.0   "/usr/bin/dumb-init …"   24 minutes ago 
 7687f414e699   redis:latest           "docker-entrypoint.s…"   26 minutes ago   Up 26 minutes (healthy)    6379/tcp                                              airflow-redis-1
 ```
 
+## Removing Airflow
+```shell
+docker-compose down --volumes --rmi all --remove-orphans
+docker-compose down flower --volumes --rmi all --remove-orphans
+```
 
 ## Custom image
 https://airflow.apache.org/docs/docker-stack/build.html#build-build-image
