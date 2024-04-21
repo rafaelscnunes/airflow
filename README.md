@@ -1,8 +1,7 @@
-# airflow
-https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html
+# [airflow](https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html)
 
 ```shell
-curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.2.2/docker-compose.yaml'
+curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.9.0/docker-compose.yaml'
 ```
 
 This file contains several service definitions:
@@ -17,7 +16,7 @@ This file contains several service definitions:
 
 
 ```shell
-mkdir -p ./dags ./logs ./plugins
+mkdir -p ./dags ./logs ./plugins ./config
 echo -e "AIRFLOW_UID=$(id -u)" > .env
 ```
 
@@ -26,28 +25,24 @@ echo -e "AIRFLOW_UID=$(id -u)" > .env
 docker-compose up airflow-init
 ```
 
-```
-airflow-init_1       | Upgrades done
-airflow-init_1       | Admin user airflow created
-airflow-init_1       | 2.2.2
-start_airflow-init_1 exited with code 0
-```
-
 The account created has the login airflow and the password airflow
 
 ## Running Airflow
 ```shell
 docker-compose up -d
+docker-compose up flower
 
 
 $ docker ps
-CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS                    PORTS                              NAMES
-247ebe6cf87a   apache/airflow:2.2.2   "/usr/bin/dumb-init …"   3 minutes ago    Up 3 minutes (healthy)    8080/tcp                           compose_airflow-worker_1
-ed9b09fc84b1   apache/airflow:2.2.2   "/usr/bin/dumb-init …"   3 minutes ago    Up 3 minutes (healthy)    8080/tcp                           compose_airflow-scheduler_1
-65ac1da2c219   apache/airflow:2.2.2   "/usr/bin/dumb-init …"   3 minutes ago    Up 3 minutes (healthy)    0.0.0.0:5555->5555/tcp, 8080/tcp   compose_flower_1
-7cb1fb603a98   apache/airflow:2.2.2   "/usr/bin/dumb-init …"   3 minutes ago    Up 3 minutes (healthy)    0.0.0.0:8080->8080/tcp             compose_airflow-webserver_1
-74f3bbe506eb   postgres:13            "docker-entrypoint.s…"   18 minutes ago   Up 17 minutes (healthy)   5432/tcp                           compose_postgres_1
-0bd6576d23cb   redis:latest           "docker-entrypoint.s…"   10 hours ago     Up 17 minutes (healthy)   0.0.0.0:6379->6379/tcp             compose_redis_1
+
+CONTAINER ID   IMAGE                  COMMAND                  CREATED              STATUS                          PORTS                                       NAMES
+0d021eb148b8   apache/airflow:2.9.0   "/usr/bin/dumb-init …"   About a minute ago   Up About a minute (healthy)     0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   airflow-airflow-webserver-1
+83c4d204b107   apache/airflow:2.9.0   "/usr/bin/dumb-init …"   About a minute ago   Up About a minute (healthy)     8080/tcp                                    airflow-airflow-worker-1
+ccd5f4c8983b   apache/airflow:2.9.0   "/usr/bin/dumb-init …"   About a minute ago   Up About a minute (healthy)     8080/tcp                                    airflow-airflow-scheduler-1
+2a224d951dec   apache/airflow:2.9.0   "/usr/bin/dumb-init …"   About a minute ago   Up About a minute (healthy)     8080/tcp                                    airflow-airflow-triggerer-1
+33c1969d1d12   apache/airflow:2.9.0   "/bin/bash -c 'if [[…"   3 minutes ago        Exited (0) About a minute ago                                               airflow-airflow-init-1
+1ded58c5770f   postgres:13            "docker-entrypoint.s…"   3 minutes ago        Up 3 minutes (healthy)          5432/tcp                                    airflow-postgres-1
+7687f414e699   redis:latest           "docker-entrypoint.s…"   3 minutes ago        Up 3 minutes (healthy)          6379/tcp                                    airflow-redis-1
 ```
 
 
